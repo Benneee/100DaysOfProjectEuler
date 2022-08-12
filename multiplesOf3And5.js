@@ -5,7 +5,7 @@
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
 
-const log = console.log;
+const log = require("./helper");
 
 // First question: how to know if a number is a multiple of another in JavaScript
 
