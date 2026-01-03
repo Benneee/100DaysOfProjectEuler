@@ -9,42 +9,41 @@
 const log = require("./helper");
 
 /**
- * Our limit will be two million
- * we can use an helper function to find all the prime numbers off a while loop
- * with limit set as the limit from the function's argument
+ * Reviewed the previous solution
  *
- * This needs to be redone :) 02/01/2026
+ * We will have a helper function to tell us if a number is prime
+ *
+ * Use the helper function in the main function to weed out the prime numnbers
+ * while keeping a rolling sum
+ * at the end, the sum is returned as the value
+ *
+ * The helper function takes away the complexity of finding the prime numbers first
  */
 function summationOfPrimes(limit) {
-    let arrayOfPrimeNumbers = [];
+  let starter = 2;
+  let sum = 0;
 
-    let starter = 2;
-    let limitReached = false;
-
-    while (limitReached === false) {
-        arrayOfPrimeNumbers.push(findPrime(starter));
-        arrayOfPrimeNumbers = [...new Set(arrayOfPrimeNumbers)];
-
-        if (starter === limit) {
-            limitReached = true;
-        } else {
-            starter++;
-        }
+  for (let i = starter; i < limit; i++) {
+    if (isPrime(i)) {
+      sum += i;
     }
+  }
 
-    return arrayOfPrimeNumbers.reduce(
-        (previous, current) => previous + current,
-        0,
-    );
+  return sum;
 }
 
-function findPrime(num) {
-    for (let i = 2; i <= num; i++) {
-        if (num % i === 0) {
-            num = num / i;
-            return i;
-        }
+function isPrime(num) {
+  if (num < 2) {
+    return false;
+  }
+
+  for (i = 2; i * i <= num; i++) {
+    if (num % i === 0) {
+      return false;
     }
+  }
+
+  return true;
 }
 
-log(summationOfPrimes(100000));
+log(summationOfPrimes(2000000));
